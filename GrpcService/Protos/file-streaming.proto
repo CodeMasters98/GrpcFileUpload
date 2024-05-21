@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+option csharp_namespace = "GrpcService.Protos";
+import "google/protobuf/empty.proto";
+
+message Info{
+	string file_name=1;
+	string file_extension=2;
+}
+message ByteContent{
+	int64 file_size = 1;
+    bytes buffer = 2;
+    int32 readed_byte = 3;
+    Info info = 4;
+}
+
+service FileStreamingService{
+	rpc UploadFile(stream ByteContent) returns (google.protobuf.Empty);
+}
